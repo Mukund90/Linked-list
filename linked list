@@ -1,0 +1,155 @@
+#include<iostream>
+using namespace std;
+class Node 
+{
+    public:
+    int data ;
+    Node * next = NULL;
+
+    Node (int val)
+    {
+        this->data = val;
+        this->next = NULL;
+    }
+
+    //insertion at first position->
+
+    void Insertion_at_first_node(Node ** head_ref , int data1)
+    {
+        Node * temp ;
+        temp = new Node(data1);
+        temp->next = (*head_ref);
+        (*head_ref) =temp;
+    }
+
+    //Insert at any position of the linked list->
+
+    void Insert_at_any_position(Node ** head_ref ,int data3)
+   {
+      if(*head_ref ==NULL)
+      {
+        (*head_ref)= new Node (data3);
+
+      }
+      else
+      {
+         int x ;
+         cout<<"Enter a position to insert a linked list->";
+         cin>>x;
+         Node * temp = *head_ref;
+         x--;
+         while(x--)
+         {
+            temp= temp->next;
+         }
+
+         Node * temp2 ;
+         temp2 = new Node(data3);
+         temp2->next = temp->next;
+         temp->next = temp2;
+      }
+   }
+
+//    insertion at end of linked list->
+
+    void Insertion_at_end(Node ** head_ref,int data5)
+    {
+      if(*head_ref ==NULL)
+      {
+        *head_ref = new Node(data5);
+      }
+      else
+      {
+        Node * tail = *head_ref;
+        while(tail->next ==NULL)
+        {
+            tail = tail->next;
+        }
+
+        Node * temp3 ;
+        temp3 = new Node(data5);
+        tail->next = temp3;
+        temp3->next=NULL;
+      }
+    }
+
+    void Del_at_first_node(Node**head_ref)
+    {
+       if(head_ref!=NULL)
+       {
+        Node * temp = *head_ref;
+        (*head_ref)= (*head_ref)->next;
+        delete temp;
+       }
+    }
+     
+    // delete at end of the linked list->
+
+    void delete_at_end(Node ** head_ref)
+  {
+    Node * Curruent_node = * head_ref;
+    Node * previous_node = NULL;
+    while(Curruent_node->next!=NULL)
+    {
+     previous_node = Curruent_node;
+     Curruent_node = Curruent_node->next;
+    }
+    delete Curruent_node;
+    previous_node->next = NULL;
+
+ }
+
+ void Delete_at_particular_node(Node** head_ref)
+ {
+    
+    Node * Curruent_node = * head_ref;
+    Node * previous_node = NULL;
+    int x ;
+    cout<<"Enter a no where you want to a delete of linked list->"<<endl;
+    cin>>x;
+    if(x==1)
+    {
+      Node * temp ;
+      temp = *head_ref;
+      (*head_ref) = (*head_ref) ->next;
+      delete temp;
+      cout<<"linked list is empty"<<endl;
+    }
+    x--;
+    while(x--)
+    {
+     previous_node = Curruent_node;
+     Curruent_node = Curruent_node->next;
+    }
+    previous_node->next=Curruent_node;
+    delete Curruent_node;
+
+ 
+ }
+
+   void Traversing_linkedlist(Node ** head_ref )
+   {
+    Node * temp = *head_ref;
+    while(temp!=NULL)
+    {
+      cout<<"linked list is ->>"<<temp->data<<endl;
+      temp= temp->next;
+    }
+   }
+
+
+};
+int main()
+{
+    Node * head = new Node(89);
+    head->Insertion_at_first_node(&head,87);
+    head->Insertion_at_end(&head,100);
+    head->Insert_at_any_position(&head,800);
+    head->Del_at_first_node(&head);
+    head->delete_at_end(&head);
+    head->Delete_at_particular_node(&head);
+    head->Traversing_linkedlist(&head);
+    
+
+    return 0;
+}
